@@ -1,0 +1,51 @@
+.admov-con{
+    display: flex;
+    flex-direction: column;
+    background: rgb(128, 128, 131);
+    height: 100vh;
+    align-items: center;
+    justify-content: center;
+}
+
+.admov-con form{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid black;
+    width: 30%;
+    height: 50%;
+    font-family: "Times New Roman", Times, serif;
+    background: #acabab;
+    border-radius: 10px;
+}
+
+.admov-con form p{
+    font-size: 20px;
+}
+
+.admov-con form input{
+    height: 40px;
+    border: 1px solid black;
+    border-radius: 5px;
+    width: 80%;
+    background: rgb(211, 211, 202);
+    text-align: center;
+    font-family: "Times New Roman", Times, serif;
+    font-size: 15px;
+}
+
+.admov-con form button{
+    height: 30px;
+    border: 1px solid black;
+    background: rgb(211, 211, 202);
+    cursor: pointer;
+    font-size: 15px;
+    width: 100px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+.admov-con form button:hover{
+    background: #f5eeee;
+}

@@ -1,0 +1,105 @@
+.bp-con{
+    height: 100vh;
+    width: 100%;
+    margin: 0%;
+    padding: 0%;
+    background: rgb(128, 128, 131);
+}
+
+.th-con{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 90vh;
+    flex-direction: column;
+}
+
+.bookpagenavbar{
+    background: rgb(82, 82, 83);
+    color:aliceblue;
+    height: 50px;
+    display: flex;
+    font-size: 17px;
+    align-items: center;
+}
+
+.bookpagenavbar li{
+    list-style: none;
+    cursor: pointer;
+}
+
+.the{
+    border: 2px solid black;
+    height: 60vh;
+    width: 40%;
+}
+
+.screen{
+    border: 1px solid black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50%;
+    height: 30px;
+    margin-top: 5px;
+    margin-left: 25%;
+}
+
+.th{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin-top: 40px;
+}
+
+.seats{
+    /* border: 1px solid black; */
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.seat{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50px;
+    width: 50px;
+    border: 1px solid rgb(7, 7, 7);
+    cursor: pointer;
+}
+
+.seat-info{
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    margin: 30px;
+    justify-content: center;
+    align-items: center;
+}
+
+.seat-info span{
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.book-btn{
+    height: 30px;
+    border: 1px solid black;
+    border-radius: 5px;
+    background: rgb(211, 211, 202);
+    cursor: pointer;
+    margin: 2px 5px;
+    font-family: "Times New Roman", Times, serif;
+    font-size: 15px;
+    width: 100px;
+}
+
+.book-btn:hover{
+    background: #dbdada;
+}

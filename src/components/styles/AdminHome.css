@@ -1,0 +1,64 @@
+body{
+    padding: 0px;
+    margin: 0px;
+}
+
+.ad-con{
+    display: flex;
+    flex-direction: column;
+    background: rgb(128, 128, 131);
+    height: 100vh;
+}
+
+.ad-btns{
+    margin: 10px;
+}
+
+.ad-btns .btn{
+    height: 30px;
+    border: 1px solid black;
+    border-radius: 5px;
+    background: rgb(211, 211, 202);
+    cursor: pointer;
+    margin: 2px 5px;
+    font-family: "Times New Roman", Times, serif;
+    font-size: 15px;
+}
+
+.ad-btns .btn:hover{
+    background: #efeeee;
+}
+
+.addhome-con {
+    margin: 20px;
+    margin-top: 5px;
+}
+
+.addhome-con table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px; 
+}
+
+.addhome-con thead {
+    background-color: #343a40; 
+    color: white;
+}
+
+.addhome-con thead th {
+    padding: 10px;
+    text-align: left;
+}
+
+.addhome-con td {
+    padding: 10px;
+    border: 1px solid #dee2e6; 
+}
+
+.addhome-con tbody tr:nth-child(even) {
+    background-color: #c9cbcd; 
+}
+
+.addhome-con tbody tr:hover {
+    background-color: #adb0ae; 
+}

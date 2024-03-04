@@ -1,0 +1,85 @@
+body{
+    padding: 0px;
+    margin: 0px;
+}
+
+.home{
+    display: flex;
+    flex-direction: column;
+    background: rgb(128, 128, 131);
+    height: 100vh;
+}
+
+.booking-btn{
+    height: 30px;
+    width: 100px;
+    border: 1px solid black;
+    border-radius: 5px;
+    margin-left: 92%;
+    margin-top: 10px;
+    background: rgb(211, 211, 202);
+    cursor: pointer;
+    font-family: "Times New Roman", Times, serif;
+    font-size: 15px;
+}
+
+.home-con button{
+    height: 30px;
+    border: 1px solid black;
+    border-radius: 5px;
+    background: rgb(211, 211, 202);
+    cursor: pointer;
+    margin: 2px 5px;
+    font-family: "Times New Roman", Times, serif;
+    font-size: 15px;
+    width: 70px;
+}
+
+.home-con input{
+    height: 30px;
+    border: 1px solid black;
+    border-radius: 5px;
+    background: rgb(211, 211, 202);
+}
+
+.home-con .search{
+    display: flex;
+    align-items: center;
+}
+
+.home-con {
+    margin: 20px;
+    margin-top: 5px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.home-con table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px; 
+}
+
+.home-con thead {
+    background-color: #343a40; 
+    color: white;
+}
+
+.home-con thead th {
+    padding: 10px;
+    text-align: left;
+}
+
+.home-con td {
+    padding: 10px;
+    border: 1px solid #dee2e6; 
+}
+
+.home-con tbody tr:nth-child(even) {
+    background-color: #c9cbcd; 
+}
+
+.home-con tbody tr:hover {
+    background-color: #adb0ae; 
+}

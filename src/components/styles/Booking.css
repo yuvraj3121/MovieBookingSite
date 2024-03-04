@@ -1,0 +1,63 @@
+.b-con{
+    height: 100vh;
+    width: 100%;
+    margin: 0%;
+    padding: 0%;
+    background: rgb(128, 128, 131);
+}
+
+.bookingsnavbar{
+    background: rgb(82, 82, 83);
+    color:aliceblue;
+    height: 50px;
+    display: flex;
+    font-size: 17px;
+    align-items: center;
+}
+
+.bookingsnavbar ul li{
+    list-style: none;
+    cursor: pointer;
+}
+
+.tickets{
+    display: flex;
+    flex-direction: row;    
+    flex-wrap: wrap;
+}
+.booking{
+    border: 2px solid black;
+    width: 300px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    height: max-content;
+    padding: 10px 10px;
+    margin: 10px;
+}
+
+.bookedmovie{
+    border: 2px solid black;
+    width: max-content;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: max-content;
+    padding: 10px 10px;
+}
+
+.booking button{
+    height: 100px;
+    border: 1px solid black;
+    border-radius: 5px;
+    background: rgb(211, 211, 202);
+    cursor: pointer;
+    margin-left: 10px;
+    font-family: "Times New Roman", Times, serif;
+    font-size: 15px;
+    width: 100px;
+}
+
+.booking button:hover{
+    background: #dbdada;
+}
