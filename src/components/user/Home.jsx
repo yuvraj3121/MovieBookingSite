@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Navbar from '../navbar'
 import { useNavigate } from 'react-router-dom'
 import "../styles/Home.css"
@@ -13,6 +13,17 @@ const Userhome = () => {
     const handleclick = e => {
         setselecteditems(movies.filter(m => m.name == item))
     }
+
+    const users = JSON.parse(localStorage.getItem("users")) || [];
+    const loggeduser = users.find(u => u.loggedIn == true)
+
+    useEffect(() => {
+        if (!loggeduser) {
+            navigate("/Login")
+        }
+    }, [])
+
+    if (!loggeduser) return <span></span>;
 
     return (
         <div className='home'>

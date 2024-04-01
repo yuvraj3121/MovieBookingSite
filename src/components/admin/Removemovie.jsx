@@ -8,20 +8,21 @@ const Addmovie = () => {
     const handlesubmit = e => {
         e.preventDefault();
         if (input.name == "") {
-            alert("Enter movie name")
+            alert("Enter the complete data.")
             return
         }
         else if (input.date == "") {
-            alert("Enter date")
+            alert("Enter the complete data.")
             return
         }
         else if (input.time == "") {
-            alert("Enter time")
+            alert("Enter the complete data.")
             return
         }
         const existingmovies = JSON.parse(localStorage.getItem("movies")) || [];
         if (!existingmovies.find(m => m.name == input.name && m.date == input.date && m.time == input.time)) {
-            alert("Movie with the given data is already removed.")
+            alert("Movie with the given data is not in the list.")
+            setinput({ name: "", date: "", time: "" });
         }
         else {
             const updatedmovies = existingmovies.filter(m => m.name != input.name && m.date != input.date && m.time != input.time)
