@@ -45,7 +45,7 @@ const Register = () => {
                 <p>Email</p>
                 <input name='email' value={input.email} onChange={e => { setinput({ ...input, [e.target.name]: e.target.value }) }} placeholder='Enter Your Email' type="text" />
                 <p>Password</p>
-                <input name='password' value={input.password} onChange={e => { setinput({ ...input, [e.target.name]: e.target.value }) }} placeholder='Enter Your Password' type="text" />
+                <input name='password' value={input.password} onChange={e => { setinput({ ...input, [e.target.name]: e.target.value }) }} placeholder='Enter Your Password' type="password" />
                 <p></p>
                 <button className='log-btn'>Login</button>
                 <p>New member. <span onClick={handleclick} >Register</span></p>
