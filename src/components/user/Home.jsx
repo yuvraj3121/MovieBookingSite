@@ -1,63 +1,92 @@
-import React, { useEffect, useState } from 'react'
-import Navbar from '../navbar'
-import { useNavigate } from 'react-router-dom'
-import "../styles/Home.css"
+import React, { useEffect, useState } from "react";
+import Navbar from "../navbar";
+import { useNavigate } from "react-router-dom";
+import "../styles/Home.css";
+import { useSelector, useDispatch } from "react-redux";
+import { selectMovie } from "../../features/movieSlice.js";
 
 const Userhome = () => {
-    const navigate = useNavigate();
-    const movies = JSON.parse(localStorage.getItem("movies")) || [];
-    const [selecteditems, setselecteditems] = useState(movies);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const movies = useSelector((state) => state.movie.movies);
+  const users = useSelector((state) => state.user.users);
+  const [selectedItems, setSelectedItems] = useState(movies);
 
-    const [item, setitem] = useState("");
+  const loggeduser = users.find((u) => u.loggedIn === true);
 
-    const handleclick = e => {
-        setselecteditems(movies.filter(m => m.name == item))
+  const [item, setItem] = useState("");
+
+  const handleSearchClick = (e) => {
+    if (item) {
+      const filteredMovies = movies.filter((m) =>
+        m.name.toLowerCase().includes(item.toLowerCase())
+      );
+      setSelectedItems(filteredMovies);
+    } else {
+      setSelectedItems(movies);
     }
+    setItem("");
+  };
 
-    const users = JSON.parse(localStorage.getItem("users")) || [];
-    const loggeduser = users.find(u => u.loggedIn == true)
+  useEffect(() => {
+    if (!loggeduser) {
+      navigate("/Login");
+    }
+  }, [loggeduser, navigate]);
 
-    useEffect(() => {
-        if (!loggeduser) {
-            navigate("/Login")
-        }
-    }, [])
-
-    if (!loggeduser) return <span></span>;
-
+  if (!loggeduser)
     return (
-        <div className='home'>
-            <Navbar />
-            <button className='booking-btn' onClick={() => navigate('/Bookings')}>Bookings</button>
-            <div className='home-con'>
-                <div className='search'>
-                    <input value={item} onChange={e => setitem(e.target.value)} type="text" />
-                    <button onClick={handleclick}>search</button>
-                </div>
-                <table className="table table-bordered">
-                    <thead className="thead-dark">
-                        <tr>
-                            <td width="33%">Movie</td>
-                            <td>Date</td>
-                            <td>Time</td>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {selecteditems.map((movie, index) => (
-                            <tr key={index}>
-                                <td><span onClick={() => {
-                                    localStorage.setItem("selectedmovie", JSON.stringify(movie.name));
-                                    navigate("/Bookingpage")
-                                }} style={{ cursor: "pointer" }}>{movie.name}</span></td>
-                                <td>{movie.date}</td>
-                                <td>{movie.time}</td>
-                            </tr>
-                        ))}
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    )
-}
+      <span>
+        <h1>no logged user</h1>
+      </span>
+    );
 
-export default Userhome
+  return (
+    <div className="home">
+      <Navbar />
+      <button className="booking-btn" onClick={() => navigate("/Bookings")}>
+        Bookings
+      </button>
+      <div className="home-con">
+        <div className="search">
+          <input
+            value={item}
+            onChange={(e) => setItem(e.target.value)}
+            type="text"
+          />
+          <button onClick={handleSearchClick}>search</button>
+        </div>
+        <table className="table table-bordered">
+          <thead className="thead-dark">
+            <tr>
+              <td width="33%">Movie</td>
+              <td>Date</td>
+              <td>Time</td>
+            </tr>
+          </thead>
+          <tbody>
+            {selectedItems.map((movie, index) => (
+              <tr key={index}>
+                <td>
+                  <span
+                    onClick={() => {
+                      dispatch(selectMovie(movie.name));
+                      navigate("/Bookingpage");
+                    }}
+                    style={{ cursor: "pointer" }}
+                  >
+                    {movie.name}
+                  </span>
+                </td>
+                <td>{movie.date}</td>
+                <td>{movie.time}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  );
+};
+
+export default Userhome;

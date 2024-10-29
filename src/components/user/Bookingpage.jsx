@@ -1,63 +1,79 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../styles/Bookingpage.css";
+import { useSelector, useDispatch } from "react-redux";
+import { setMovie } from "../../features/movieSlice";
+import { setUser } from "../../features/userSlice";
 
 const Bookingpage = () => {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
-  const movies = JSON.parse(localStorage.getItem("movies")) || [];
-  const selectedmovie = JSON.parse(localStorage.getItem("selectedmovie"));
+  const users = useSelector((state) => state.user.users);
+  const movies = useSelector((state) => state.movie.movies);
+  const selectedMovie = useSelector((state) => state.movie.selectedMovie);
 
-  const movie = movies.find((m) => m.name == selectedmovie);
-  const theatre = movie.theatre;
+  let loggeduser = users.find((u) => u.loggedIn === true);
 
-  let selectedseats = [];
-  let userseats = [];
+  const movie = movies.find((m) => m.name === selectedMovie);
 
-  const handleclick = (rowindex, sindex) => {
+  const [selectedSeats, setSelectedSeats] = useState([]);
+  const [userSeats, setUserSeats] = useState([]);
+
+  const handleClick = (rowindex, sindex) => {
     const eleid = `${rowindex}-${sindex}`;
-    const selectedseat = document.getElementById(eleid);
-    if (selectedseat.style.background === "green") {
-      selectedseat.style.background = "yellow";
-      selectedseats.push([rowindex, sindex]);
-      console.log(selectedseats);
-    } else if (selectedseat.style.background === "red") {
-      selectedseat.style.background = "red";
+    const selectedSeat = document.getElementById(eleid);
+
+    if (selectedSeat.style.background === "green") {
+      selectedSeat.style.background = "yellow";
+      setSelectedSeats((prev) => [...prev, [rowindex, sindex]]);
+    } else if (selectedSeat.style.background === "red") {
+      return;
     } else {
-      selectedseat.style.background = "green";
-      selectedseats = selectedseats.filter(
-        (seat) => seat[0] !== rowindex || seat[1] !== sindex
+      selectedSeat.style.background = "green";
+      setSelectedSeats((prev) =>
+        prev.filter((seat) => seat[0] !== rowindex || seat[1] !== sindex)
       );
     }
   };
 
-  const users = JSON.parse(localStorage.getItem("users")) || [];
-  let loggeduser = users.find((u) => u.loggedIn == true);
+  const handlebook = () => {
+    const theatre = movie.theatre.map((row) => [...row]);
 
-  const handlebook = (e) => {
-    selectedseats = selectedseats.sort((a, b) => a[1] - b[1]);
-    let str = "";
-    selectedseats.forEach((seat) => {
+    const bookedSeats = selectedSeats.map((seat) => {
       const selectedseat = document.getElementById(`${seat[0]}-${seat[1]}`);
       selectedseat.style.background = "red";
-      movie.theatre[seat[0]][seat[1]] =
-        movie.theatre[seat[0]][seat[1]].split("-")[0] + "-red";
-      str = str + movie.theatre[seat[0]][seat[1]].split("-")[0] + " ";
-      userseats.push(movie.theatre[seat[0]][seat[1]].split("-")[0]);
+      const seatLabel = theatre[seat[0]][seat[1]].split("-")[0];
+      theatre[seat[0]][seat[1]] = `${seatLabel}-red`;
+      return seatLabel;
     });
-    localStorage.setItem("movies", JSON.stringify(movies));
-    document.getElementById(
-      "show"
-    ).innerHTML = `Seat ${str} booked successfully.`;
 
-    loggeduser.bookedmovie = [
-      ...loggeduser.bookedmovie,
-      { name: selectedmovie, bookedseats: [...userseats] },
-    ];
+    setUserSeats((prevUserSeats) => [...prevUserSeats, ...bookedSeats]);
 
-    localStorage.setItem("users", JSON.stringify(users));
+    dispatch(
+      setMovie(
+        movies.map((m) =>
+          m.name === selectedMovie ? { ...m, theatre: theatre } : m
+        )
+      )
+    );
 
-    selectedseats = [];
-    userseats = [];
+    document.getElementById("show").innerHTML = `Seat ${bookedSeats.join(
+      ", "
+    )} booked successfully.`;
+
+    const updatedUser = {
+      ...loggeduser,
+      bookedmovie: [
+        ...loggeduser.bookedmovie,
+        { name: selectedMovie, bookedseats: bookedSeats },
+      ],
+    };
+
+    const updatedUsers = users.map((u) => (u.loggedIn ? updatedUser : u));
+
+    dispatch(setUser(updatedUsers));
+
+    setSelectedSeats([]);
   };
 
   return (
@@ -77,15 +93,15 @@ const Bookingpage = () => {
         <div className="the">
           <span className="screen">Screen</span>
           <div className="th">
-            {theatre.map((seatrow, rowindex) => (
+            {movie.theatre.map((seatrow, rowindex) => (
               <span className="seats">
                 {seatrow.map((snumber, sindex) => {
                   return (
                     <span
-                      onClick={() => handleclick(rowindex, sindex)}
+                      onClick={() => handleClick(rowindex, sindex)}
                       id={`${rowindex}-${sindex}`}
                       className="seat"
-                      key={sindex}
+                      key={`${rowindex}-${sindex}`}
                       style={{ background: snumber.split("-")[1] }}
                     >
                       {snumber.split("-")[0]}
